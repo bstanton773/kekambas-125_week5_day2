@@ -93,3 +93,42 @@ FROM product;
 -- Add the foreign key to the order_product table now that Product exists
 ALTER TABLE order_product 
 ADD FOREIGN KEY(product_id) REFERENCES product(product_id);
+
+
+
+
+-- Create a dummy table to eventually drop
+
+CREATE TABLE dummy(
+	dummy_id SERIAL PRIMARY KEY,
+	col_1 INTEGER,
+	col_2 BOOLEAN
+);
+
+-- RENAME a Table
+--ALTER TABLE table_name RENAME TO new_table_name
+ALTER TABLE dummy
+RENAME TO test;
+
+
+-- To remove a column from a table, we use the DROP statement
+-- BE CAREFUL WITH DROP! NO UNDOING!
+ALTER TABLE test
+DROP COLUMN col_1;
+
+SELECT *
+FROM test;
+
+
+-- Remove a table completely - also use DROP
+DROP TABLE IF EXISTS test;
+-- IF EXISTS will only drop if the table exists, otherwise skip command
+
+CREATE TABLE IF NOT EXISTS post (
+	post_id SERIAL PRIMARY KEY,
+	title VARCHAR(50),
+	body VARCHAR
+);
+
+
+DROP TABLE IF EXISTS post;
